@@ -1,0 +1,38 @@
+{
+  "products": [
+    {
+      "name": "1ddddd_update1111",
+      "price": 100,
+      "image": "asss",
+      "Des": "asss",
+      "id": "2437"
+    }
+  ],
+  "users": [
+    {
+      "email": "chuc1@gmail.com",
+      "password": "chuc123",
+      "id": "4c42"
+    },
+    {
+      "id": "99d0",
+      "email": "chuc2@Gmail.com",
+      "password": "123456"
+    },
+    {
+      "email": "chuc211@Gmail.com",
+      "password": "$2a$10$GHiO/AoialxXJtjXXEnIdez39/d/3ed2X/PxSvysUxWUk8hfk5ZyG",
+      "id": "AKicZOq"
+    },
+    {
+      "email": "chuc11@Gmail.com",
+      "password": "$2a$10$YEsVoFzwAELmJsurxRREfOHbzqiXYa12xYP0iHh0..pf9eNve8Kqy",
+      "id": "-C5Kghg"
+    },
+    {
+      "email": "chuc2111@Gmail.com",
+      "password": "$2a$10$6tpjxeP19eCzH.2A.w5lCuN2uq3pZT5OKUKFEPk8ASUito2BODLxe",
+      "id": "hbuJ05a"
+    }
+  ]
+}
