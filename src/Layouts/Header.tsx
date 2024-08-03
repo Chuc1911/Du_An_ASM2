@@ -217,7 +217,7 @@ const Header = () => {
                       <a href="index.html">
                         <img
                           className="img-full"
-                          src="assets/images/logo/logo.png"
+                          src="assets/images/logo/logo2.png"
                           alt="Header Logo"
                         />
                       </a>
