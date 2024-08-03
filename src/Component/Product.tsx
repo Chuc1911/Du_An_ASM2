@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type Props={
     product:any
 }
@@ -5,9 +7,12 @@ export  const Product = ({ product }:Props) => (
   <div className="w-full p-4">
     <div className="single-product relative bg-white shadow-md rounded-lg overflow-hidden">
       <div className="product-image relative">
-        <a className="block" href="product-details.html">
+        <a className="block" >
+          <Link to={'/productDetail'}>
           <img src={product.img1} alt="" className="w-full" />
           <img src={product.img2} alt="" className="absolute top-0 left-0 w-full opacity-0 hover:opacity-100 transition-opacity duration-300" />
+          </Link>
+         
         </a>
       </div>
       {product.soldOut && <div className="label-sale absolute top-0 left-0 bg-red-500 text-white text-xs font-bold py-1 px-2 rounded-br-lg">Soldout</div>}
