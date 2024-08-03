@@ -169,16 +169,16 @@ export default function ProductDetails() {
                                                     <div className="row comment-input">
                                                         <div className="col-md-6 col-custom comment-form-author mb-3">
                                                             <label>Name <span className="required">*</span></label>
-                                                            <input type="text" required="required" name="Name"/>
+                                                            <input type="text"  name="Name"/>
                                                         </div>
                                                         <div className="col-md-6 col-custom comment-form-emai mb-3">
                                                             <label>Email <span className="required">*</span></label>
-                                                            <input type="text" required="required" name="email"/>
+                                                            <input type="text"  name="email"/>
                                                         </div>
                                                     </div>
                                                     <div className="comment-form-comment mb-3">
                                                         <label>Comment</label>
-                                                        <textarea className="comment-notes" required="required"></textarea>
+                                                        <textarea className="comment-notes" ></textarea>
                                                     </div>
                                                     <div className="comment-form-submit">
                                                         <input type="submit" value="Submit" className="comment-submit btn obrien-button primary-btn"/>
