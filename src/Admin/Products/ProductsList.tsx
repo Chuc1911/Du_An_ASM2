@@ -40,9 +40,7 @@ const ProductsList = ({products,setProducts}) => {
 						<tr key={p._id}>
 							<td>{p._id}</td>
 							<td>{p.title}</td>
-							<td>{p.price && typeof p.price === 'object'
-								? p.price.$numberDecimal
-								: p.price}</td>
+							<td>{ p.price}</td>
 							<td>{p.description || "Dang cap nhat"}</td>
 							<td>
 								{p.image_url ? (

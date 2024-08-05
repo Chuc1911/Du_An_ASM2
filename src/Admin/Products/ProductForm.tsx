@@ -38,7 +38,7 @@ const ProductForm = () => {
 				reset(data);
 				setProductImage(data.image_url);
 				setValue("title", data.title);
-				setValue("price", data.price.$numberDecimal);
+				setValue("price", data.price);
 				setValue("description", data.description);
 				setValue("Category_id", data.Category_id);
 				// const categoryRes = await Instance.get(`/categories/${data.Category_id}`);

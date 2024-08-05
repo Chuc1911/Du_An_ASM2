@@ -1,52 +1,85 @@
-import instance from "@/api";
-import { Product } from "@/interfaces/Product";
-import cartReducer from "@/reducers/cartReducer";
-import React, { createContext, useReducer, ReactNode } from "react";
+import React, { createContext, ReactNode, useEffect, useReducer } from 'react';
+import { instance } from '../api';
+import { toast } from 'react-toastify';
+import { Product } from '../interface/product';
+import CartReducers, { CartItem } from '../reducers/cartReducers';
+import { Order } from '../interface/order';
 
 export type CartContextType = {
-	state: {
-		products: { product: Product; quantity: number }[];
-		totalPrice: number;
-	};
-	dispatch: React.Dispatch<any>;
-	addToCart: (product: Product, quantity: number) => void;
-	getCart: () => void;
-	checkout: () => void;
-	removeFromCart: (productId: string) => void;
-};
+  state: {
+    products: CartItem[];
+    totalPrice: number;
+  };
+  dispatch: React.Dispatch<any>;
+  addToCart: (product: Product, quantity: number, size: string) => void;
+  getCart: () => void;
+  removeFromCart: (productId: string) => void;
+  checkout: (order: Order) => void;
+  totalQuantity: number;
+}
 
 const initialState = {
-	products: [],
-	totalPrice: 0,
+  products: [] as CartItem[],
+  totalPrice: 0
 };
 
-const CartContext = createContext({} as CartContextType);
+export const CartContext = createContext<CartContextType>({} as CartContextType);
 
-const CartProvider = ({ children }: { children: ReactNode }) => {
-	const [state, dispatch] = useReducer(cartReducer, initialState);
-	const addToCart = async (product: Product, quantity: number) => {
-		const res = await instance.post("/cart", { product, quantity });
-		dispatch({ type: "ADD_TO_CART", payload: { product: res.data.product, quantity } });
-	};
-	const getCart = async () => {
-		const res = await instance.get("/cart");
-		dispatch({ type: "SET_CART", payload: res.data });
-	};
-	const checkout = async () => {
-		const res = await instance.post("/cart/checkout");
-		dispatch({ type: "CHECKOUT", payload: res.data });
-	};
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(CartReducers, initialState);
+  const totalQuantity = state.products.reduce((total, item) => total + item.quantity, 0);
 
-	const removeFromCart = async (productId: string) => {
-		const res = await instance.delete(`/cart/${productId}`);
-		res.data.success && dispatch({ type: "REMOVE_FROM_CART", payload: { productId } });
-	};
+  const getCart = async () => {
+    try {
+      const res = await instance.get('/cart');
+      dispatch({ type: "SET_CART", payload: { products: res.data.products, totalPrice: res.data.totalPrice } });
+    } catch (error) {
+      console.error(error);
+        // toast.error('Không thể tải giỏ hàng');
+    }
+  };
 
-	return (
-		<CartContext.Provider value={{ state, dispatch, addToCart, getCart, checkout, removeFromCart }}>
-			{children}
-		</CartContext.Provider>
-	);
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const addToCart = async (product: Product, quantity: number, size: string) => {
+    try {
+      const res = await instance.post('/cart', { productId: product._id, quantity, size });
+      dispatch({ type: 'ADD_TO_CART', payload: { product: res.data.product, quantity, size } });
+      toast.success('Thêm sản phẩm vào giỏ hàng thành công!');
+    } catch (error) {
+      toast.error('Thêm sản phẩm vào giỏ hàng thất bại!');
+      console.error(error);
+    }
+  };
+
+  const removeFromCart = async (productId: string) => {
+    try {
+      await instance.delete(`/cart/${productId}`);
+      dispatch({ type: "REMOVE_FROM_CART", payload: { productId } });
+      toast.success('Xóa sản phẩm khỏi giỏ hàng thành công!');
+      getCart();
+    } catch (error) {
+      toast.error('Lỗi khi xóa sản phẩm khỏi giỏ hàng.');
+      console.error(error);
+    }
+  };
+
+  const checkout = async (order: Order) => {
+    try {
+      await instance.post("/cart/checkout", order);
+      dispatch({ type: "CHECKOUT", payload: { products: [], totalPrice: 0 } });
+      toast.success('Thanh toán thành công!');
+    } catch (error) {
+      toast.error('Thanh toán thất bại.');
+      console.error('Error during checkout:', error);
+    }
+  };
+
+  return (
+    <CartContext.Provider value={{ state, dispatch, addToCart, getCart, removeFromCart, checkout, totalQuantity }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
-
-export { CartContext, CartProvider };

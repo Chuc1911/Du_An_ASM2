@@ -1,18 +1,16 @@
+import { Link } from "react-router-dom";
 import { Iproduct } from "../interface/Iproduct";
 
-type props = {
-  product:Iproduct
-}
-export const ProductItem = ({ product }:props) => (
-    <div className="single-product position-relative mb-30">
+type Props = {
+  product: Iproduct;
+};
+
+export const ProductItem = ({ product }: Props) => (
+  <div className="single-product position-relative mb-30">
+    <Link to={`/productDetail/${product._id}`} className="d-block">
       <div className="product-image">
-        <a className="d-block" href="product-details.html">
-          <img src={product.image_url} alt='' className="product-image-1 w-100" />
-        </a>
+        <img src={product.image_url} alt="" className="product-image-1 w-100" />
       </div>
-      {/* {isSoldOut && <div className="label-product">
-        <span className="label-sale position-absolute text-uppercase text-white text-center d-block">Soldout</span>
-      </div>} */}
       <div className="product-content">
         <div className="product-rating">
           <i className="fa fa-star" />
@@ -22,10 +20,12 @@ export const ProductItem = ({ product }:props) => (
           <i className="fa fa-star-o" />
         </div>
         <div className="product-title">
-          <h4 className="title-2"> <a href="product-details.html">{product.title}</a></h4>
+          <h4 className="title-2">{product.title}</h4>
         </div>
         <div className="price-box">
-        <span className="regular-price ">{product.price.$numberDecimal}</span>
+          <span className="regular-price">
+            { product.price}
+          </span>
         </div>
       </div>
       <div className="add-action d-flex position-absolute">
@@ -42,6 +42,6 @@ export const ProductItem = ({ product }:props) => (
           <i className="ion-eye" />
         </a>
       </div>
-    </div>
-  );
-  
+    </Link>
+  </div>
+);

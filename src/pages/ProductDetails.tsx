@@ -1,8 +1,24 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Header from '../Layouts/Header'
 import Footer from '../Layouts/Footer'
 import ProductRelated from '../Component/ProductRelated'
+import { Iproduct } from '../interface/Iproduct'
+import { Link, useParams } from 'react-router-dom'
+import Instance from '../api'
 export default function ProductDetails() {
+    const { id } = useParams();
+    const [ctSP,setctSp]=useState<Iproduct>()
+    
+    useEffect(() => {
+		if (id) {
+			(async () => {
+				const { data } = await Instance.get(`/products/${id}`);
+				setctSp(data)
+                console.log(data);
+                
+			})();
+		}
+	}, [id]);
   return (
     <div>
           <div className="shop-wrapper">
@@ -39,9 +55,7 @@ export default function ProductDetails() {
                         "asNavFor": ".pd-slider-nav"
                         }'>
                                 <div className="single-image border">
-                                    <a href="assets/images/product/large-size/1.jpg">
-                                        <img src="assets/images/product/large-size/1.jpg" alt="Product"/>
-                                    </a>
+                                        <img src={`${ctSP?.image_url}`} alt="Product"/>
                                 </div>
                                
                             </div>
@@ -50,11 +64,10 @@ export default function ProductDetails() {
                     <div className="col-lg-7 col-custom">
                         <div className="product-summery position-relative">
                             <div className="product-head mb-3">
-                                <h2 className="product-title">Sample product Countdown</h2>
+                                <h2 className="product-title">{ctSP?.title}</h2>
                             </div>
                             <div className="price-box mb-2">
-                                <span className="regular-price">$80.00</span>
-                                <span className="old-price"><del>$90.00</del></span>
+                                <span className="regular-price">{ctSP?.price.$numberDecimal}</span>
                             </div>
                             <div className="product-rating mb-3">
                                 <i className="fa fa-star"></i>
@@ -66,7 +79,9 @@ export default function ProductDetails() {
                             <div className="sku mb-3">
                                 <span>SKU: 12345</span>
                             </div>
-                            <p className="desc-content mb-5">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
+                            <p className="desc-content mb-5">
+                                {ctSP?.description}
+                            </p>
                             <div className="quantity-with_btn mb-4">
                                 <div className="quantity">
                                     <div className="cart-plus-minus">
@@ -76,7 +91,9 @@ export default function ProductDetails() {
                                     </div>
                                 </div>
                                 <div className="add-to_cart">
-                                    <a className="btn obrien-button primary-btn" href="cart.html">Add to cart</a>
+                                    <a className="btn obrien-button primary-btn">
+                                        <Link to={`/cart`}>Add to cart</Link>
+                                    </a>
                                     <a className="btn obrien-button-2 treansparent-color pt-0 pb-0" href="wishlist.html">Add to wishlist</a>
                                 </div>
                             </div>
