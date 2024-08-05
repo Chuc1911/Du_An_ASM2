@@ -1,54 +1,60 @@
-import React from 'react'
-import { Iproduct } from '../interface/Iproduct'
-import Instance from '../api'
-import { Link } from 'react-router-dom'
+// import { AuthContext, AuthContextType } from "@/contexts/AuthContext";
+// import { useContext } from "react";
+import { Link, Outlet } from "react-router-dom";
 
-type Props = {
-    Products:Iproduct[]
-    setProducts: React.Dispatch<React.SetStateAction<Iproduct[]>>;
-}
+const LayoutAdmin = () => {
+	// const { user } = useContext(AuthContext) as AuthContextType;
+	// if (user?.role !== "admin") {
+	// 	return <h1>Access denied. You are not an admin.</h1>;
+	// }
+	return (
+		<>
+			<header>
+				<h1>Hello Admin</h1>
 
-const AdminHome = ({Products,setProducts}:Props) => {
-    console.log(Products)
-    
-   function OnDelete(id?:number|string) {
+				<ul>
+					<li>
+						<Link to="/">Home</Link>
+					</li>
+					<li>
+						<Link to="/hosts">Quản lý host</Link>
+					</li>
 
-     if (window.confirm('bạn có chắc xóa !')) {
-       (async ()=>{
-           await Instance.delete(`/products/${id}`)
-           setProducts(Products.filter(data=>data.id!==id))
-        })()
-     }
-    
-   }
-  return (
-    
-    <div style={{margin:50}}>
-       <table >
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Des</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Products.map((product) => (
-          <tr key={product.id}>
-            <td>{product.id}</td>
-            <td>{product.name}</td>
-            <td>{product.price}</td>
-            <td>{product.Des}</td>
-            <td><button onClick={()=>{OnDelete(product.id)}}>Xóa</button></td>
-            <td><button> <Link to={`/edit/${product.id}`}>Sửa</Link></button></td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    </div>
-  )
-}
+					<li>
+						<Link to="/">Xem thống kê</Link>
+					</li>
+				</ul>
+			</header>
+			<div className="row">
+				<div className="col-2">
+					<div className="sidebar">
+						<ul>
+							<li>
+								<Link to="/admin">Dashboard</Link>
+							</li>
+							<li>
+								<Link to="/admin/users">User</Link>
+							</li>
+							<li>
+								<Link to="/admin/products">Products</Link>
+							</li>
+							<li>
+								<Link to="/admin/categories">Categories</Link>
+							</li>
+							<li>
+								<Link to="/admin/brands">Brands</Link>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div className="col-8">
+					<div className="main">
+						<Outlet />
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
 
-export default AdminHome
+export default LayoutAdmin;

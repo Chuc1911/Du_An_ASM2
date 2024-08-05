@@ -1,48 +1,49 @@
-import { ProductItem } from "./ProductFeature";
+import { ProductItem } from "./ProductItem";
 
 const products = [
+  
     {
-      images: ["assets/images/product/1.jpg", "assets/images/product/2.jpg"],
-      isSoldOut: false,
-      name: "Product dummy name",
-      regularPrice: "$80.00",
-      oldPrice: "$90.00"
+      _id: '1',
+      title: "Product dummy name",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 1",
+      image_url: "assets/images/product/1.jpg"
     },
     {
-      images: ["assets/images/product/7.jpg", "assets/images/product/8.jpg"],
-      isSoldOut: false,
-      name: "Product dummy name",
-      regularPrice: "$80.00",
-      oldPrice: "$90.00"
+      _id: '2',
+      title: "Product dummy title",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 2",
+      image_url: "assets/images/product/3.jpg"
     },
     {
-        images: ["assets/images/product/9.jpg", "assets/images/product/10.jpg"],
-        isSoldOut: false,
-        name: "Product dummy name",
-        regularPrice: "$80.00",
-        oldPrice: "$90.00"
-      },
-      {
-        images: ["assets/images/product/4.jpg", "assets/images/product/3.jpg"],
-        isSoldOut: false,
-        name: "Product dummy name",
-        regularPrice: "$80.00",
-        oldPrice: "$90.00"
-      },
-      {
-        images: ["assets/images/product/6.jpg", "assets/images/product/1.jpg"],
-        isSoldOut: false,
-        name: "Product dummy name",
-        regularPrice: "$80.00",
-        oldPrice: "$90.00"
-      },
-      {
-        images: ["assets/images/product/4.jpg", "assets/images/product/3.jpg"],
-        isSoldOut: false,
-        name: "Product dummy name",
-        regularPrice: "$80.00",
-        oldPrice: "$90.00"
-      },
+      _id: '3',
+      title: "Product dummy title",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 3",
+      image_url: "assets/images/product/5.jpg"
+    },
+    {
+      _id: '4',
+      title: "Product dummy name",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 4",
+      image_url: "assets/images/product/7.jpg"
+    },
+    {
+      _id: '5',
+      title: "Product dummy title",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 5",
+      image_url: "assets/images/product/9.jpg"
+    }
+  
+  
     // Thêm các sản phẩm khác theo định dạng trên
   ];
   
@@ -64,7 +65,7 @@ export default function ListFeaturedProducts() {
       <div className="row">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map(product => (
-             <ProductItem {...product} />
+              <ProductItem key={product._id} product={product} />
             ))}
           </div>
       </div>

@@ -1,14 +1,18 @@
-export const ProductItem = ({ images, isSoldOut, name, regularPrice, oldPrice }) => (
+import { Iproduct } from "../interface/Iproduct";
+
+type props = {
+  product:Iproduct
+}
+export const ProductItem = ({ product }:props) => (
     <div className="single-product position-relative mb-30">
       <div className="product-image">
         <a className="d-block" href="product-details.html">
-          <img src={images[0]} alt='' className="product-image-1 w-100" />
-          <img src={images[1]} alt='' className="product-image-2 position-absolute w-100" />
+          <img src={product.image_url} alt='' className="product-image-1 w-100" />
         </a>
       </div>
-      {isSoldOut && <div className="label-product">
+      {/* {isSoldOut && <div className="label-product">
         <span className="label-sale position-absolute text-uppercase text-white text-center d-block">Soldout</span>
-      </div>}
+      </div>} */}
       <div className="product-content">
         <div className="product-rating">
           <i className="fa fa-star" />
@@ -18,11 +22,10 @@ export const ProductItem = ({ images, isSoldOut, name, regularPrice, oldPrice })
           <i className="fa fa-star-o" />
         </div>
         <div className="product-title">
-          <h4 className="title-2"> <a href="product-details.html">{name}</a></h4>
+          <h4 className="title-2"> <a href="product-details.html">{product.title}</a></h4>
         </div>
         <div className="price-box">
-          <span className="regular-price ">{regularPrice}</span>
-          <span className="old-price"><del>{oldPrice}</del></span>
+        <span className="regular-price ">{product.price.$numberDecimal}</span>
         </div>
       </div>
       <div className="add-action d-flex position-absolute">

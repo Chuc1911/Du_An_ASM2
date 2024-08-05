@@ -1,52 +1,49 @@
 import React from 'react';
-import { Product } from './Product';
+import { ProductItem } from './ProductItem';
 
 const products = [
+  
     {
-        id: 1,
-        img1: "assets/images/product/1.jpg",
-        img2: "assets/images/product/2.jpg",
-        title: "Product dummy name",
-        price: "$80.00",
-        oldPrice: "$90.00",
-        soldOut: false
+      _id: '1',
+      title: "Product dummy name",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 1",
+      image_url: "assets/images/product/1.jpg"
     },
     {
-        id: 2,
-        img1: "assets/images/product/3.jpg",
-        img2: "assets/images/product/4.jpg",
-        title: "Product dummy title",
-        price: "$80.00",
-        oldPrice: "$90.00",
-        soldOut: false
+      _id: '2',
+      title: "Product dummy title",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 2",
+      image_url: "assets/images/product/3.jpg"
     },
     {
-        id: 3,
-        img1: "assets/images/product/5.jpg",
-        img2: "assets/images/product/6.jpg",
-        title: "Product dummy title",
-        price: "$80.00",
-        oldPrice: "$90.00",
-        soldOut: true
+      _id: '3',
+      title: "Product dummy title",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 3",
+      image_url: "assets/images/product/5.jpg"
     },
     {
-        id: 4,
-        img1: "assets/images/product/7.jpg",
-        img2: "assets/images/product/8.jpg",
-        title: "Product dummy name",
-        price: "$80.00",
-        oldPrice: "$90.00",
-        soldOut: false
+      _id: '4',
+      title: "Product dummy name",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 4",
+      image_url: "assets/images/product/7.jpg"
     },
     {
-        id: 5,
-        img1: "assets/images/product/9.jpg",
-        img2: "assets/images/product/10.jpg",
-        title: "Product dummy title",
-        price: "$80.00",
-        oldPrice: "$90.00",
-        soldOut: false
+      _id: '5',
+      title: "Product dummy title",
+      price: 80.00,
+      Category_id: "some-category-id",
+      description: "Description for product 5",
+      image_url: "assets/images/product/9.jpg"
     }
+  
 ];
 export default function ListBestSale() {
     return (
@@ -58,7 +55,7 @@ export default function ListBestSale() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map(product => (
-              <Product key={product.id} product={product} />
+              <ProductItem key={product._id} product={product} />
             ))}
           </div>
         </div>
