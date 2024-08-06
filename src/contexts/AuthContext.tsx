@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { User } from "../interfaces/User";
 import { useNavigate } from "react-router-dom";
+import { User } from "../interface/User";
 
 export interface AuthContextType {
 	user: User | null;

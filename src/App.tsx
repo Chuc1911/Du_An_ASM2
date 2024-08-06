@@ -20,6 +20,7 @@ import UsersList from "./Admin/Users/UserList";
 import { useEffect, useState } from "react";
 import Instance from "./api";
 import { Iproduct } from "./interface/Iproduct";
+import OrderList from "./Admin/Oders/OderList";
 
 function App() {
   const [products, setProducts] = useState<Iproduct[]>([]);
@@ -57,11 +58,13 @@ function App() {
 
           <Route path="/admin" element={<LayoutAdmin />}>
             <Route index element={<h1>Hello Admin</h1>} />
-            <Route path="/admin/products" element={<ProductsList products={products} setProducts={setProducts}/>} />
-             <Route path="/admin/product-add" element={<ProductForm />} />
-            <Route path="/admin/product-edit/:id" element={<ProductForm />} />
+            <Route path="/admin"/>
+             <Route path="/admin/products" index element={<ProductsList products={products} setProducts={setProducts}/>} />
+             <Route path="/admin/products/add" element={<ProductForm />} />
+             <Route path="/admin/product-edit/:id" element={<ProductForm />} />
 
             <Route path="/admin/users" element={<UsersList />} />
+            <Route path="/admin/oders" element={<OrderList />} />
             {/*<Route path="/admin/category-add" element={<CategoryForm />} />
             <Route path="/admin/category-edit/:id" element={<ProductForm />} /> */}
           </Route>

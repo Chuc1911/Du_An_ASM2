@@ -67,7 +67,7 @@ export default function ProductDetails() {
                                 <h2 className="product-title">{ctSP?.title}</h2>
                             </div>
                             <div className="price-box mb-2">
-                                <span className="regular-price">{ctSP?.price.$numberDecimal}</span>
+                                <span className="regular-price">{ctSP?.price}</span>
                             </div>
                             <div className="product-rating mb-3">
                                 <i className="fa fa-star"></i>
