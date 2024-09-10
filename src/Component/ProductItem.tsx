@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Iproduct } from "../interface/Iproduct";
 import { CartItem } from "../reducers/cartReducer";
 
@@ -6,12 +6,16 @@ type ProductProps = {
   product: Iproduct;
   // addToCart: (item: CartItem) => void; // Xóa dòng này nếu bạn không sử dụng addToCart nữa
 };
-
 export const ProductItem = ({ product }: ProductProps) => {
+ const navigato = useNavigate()
+
   // Hàm thêm sản phẩm vào giỏ hàng trong phiên
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     alert('đã thêm sản phẩm')
+    if (window.confirm('bạn có muốn chuyển sang giỏ hàng')) {
+      navigato('/cart')
+    }
       // Lấy dữ liệu giỏ hàng hiện tại từ sessionStorage
     const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
     // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa

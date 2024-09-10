@@ -3,12 +3,51 @@ import Header from '../Layouts/Header'
 import Footer from '../Layouts/Footer'
 import ProductRelated from '../Component/ProductRelated'
 import { Iproduct } from '../interface/Iproduct'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Instance from '../api'
-export default function ProductDetails() {
+type ProductProps = {
+    product: Iproduct;
+    // addToCart: (item: CartItem) => void; // Xóa dòng này nếu bạn không sử dụng addToCart nữa
+  };
+import { CartItem } from "../reducers/cartReducer";
+export default function ProductDetails({ product }: ProductProps) {
     const { id } = useParams();
+      const navigato = useNavigate()
+
     const [ctSP,setctSp]=useState<Iproduct>()
+    const [cout,setcout]=useState(0)
+      // Hàm thêm sản phẩm vào giỏ hàng trong phiên
+  const handleAdd = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    alert('đã thêm sản phẩm')
+    if (window.confirm('bạn có muốn chuyển sang giỏ hàng')) {
+        navigato('/cart')
+    }
+      // Lấy dữ liệu giỏ hàng hiện tại từ sessionStorage
+    const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+    const existingItem = cart.find((item: CartItem) => item._id === product._id);
+    if (existingItem) {
+      // Nếu có, cập nhật số lượng
+      existingItem.quantity += 1;
+    } else {
+      // Nếu không, thêm sản phẩm mới vào giỏ hàng
+      cart.push({ ...product, quantity: 1 });
+    }
+    // Lưu giỏ hàng cập nhật vào sessionStorage
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    // Có thể thêm thông báo hoặc xử lý khác nếu cần
+    console.log('Product added to cart:', product);
     
+  };
+
+    function handleDecrease() {
+        setcout((data)=>data-1)
+    }
+    function handleIncrease() {
+        setcout((data)=>data+1)
+    }
     useEffect(() => {
 		if (id) {
 			(async () => {
@@ -85,14 +124,14 @@ export default function ProductDetails() {
                             <div className="quantity-with_btn mb-4">
                                 <div className="quantity">
                                     <div className="cart-plus-minus">
-                                        <input className="cart-plus-minus-box" value="0" type="text"/>
-                                        <div className="dec qtybutton">-</div>
-                                        <div className="inc qtybutton">+</div>
+                                        <input className="cart-plus-minus-box" value={cout} type="text"/>
+                                        <div className="dec qtybutton" onClick={() => handleDecrease()}>-</div>
+                                        <div className="inc qtybutton" onClick={() => handleIncrease()}>+</div>
                                     </div>
                                 </div>
                                 <div className="add-to_cart">
-                                    <a className="btn obrien-button primary-btn">
-                                        <Link to={`/cart`}>Add to cart</Link>
+                                    <a className="btn obrien-button primary-btn" onClick={handleAdd}>
+                                        <Link to={`/cart`} >Add to cart</Link>
                                     </a>
                                     <a className="btn obrien-button-2 treansparent-color pt-0 pb-0" href="wishlist.html">Add to wishlist</a>
                                 </div>
